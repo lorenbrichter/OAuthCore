@@ -73,7 +73,12 @@ NSString *OAuthorizationHeader(NSURL *url, NSString *method, NSData *body, NSStr
 	}
 	NSString *normalizedParameterString = [parameterArray componentsJoinedByString:@"&"];
 	
-	NSString *normalizedURLString = [NSString stringWithFormat:@"%@://%@%@", [url scheme], [url host], [url path]];
+	NSString *normalizedURLString;
+    if ([url port] == nil) {
+        normalizedURLString = [NSString stringWithFormat:@"%@://%@%@", [url scheme], [url host], [url path]];
+    } else {
+        normalizedURLString = [NSString stringWithFormat:@"%@://%@:%@%@", [url scheme], [url host], [url port], [url path]];
+    }
 	
 	NSString *signatureBaseString = [NSString stringWithFormat:@"%@&%@&%@",
 									 [method ab_RFC3986EncodedString],
