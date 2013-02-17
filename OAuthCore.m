@@ -87,7 +87,7 @@ NSString *OAuthorizationHeader(NSURL *url, NSString *method, NSData *body, NSStr
 	
 	NSString *key = [NSString stringWithFormat:@"%@&%@",
 					 [_oAuthConsumerSecret ab_RFC3986EncodedString],
-					 [_oAuthTokenSecret ab_RFC3986EncodedString]];
+					 [_oAuthTokenSecret ab_RFC3986EncodedString] ?: @""];
 	
 	NSData *signature = HMAC_SHA1(signatureBaseString, key);
 	NSString *base64Signature = [signature base64EncodedString];
