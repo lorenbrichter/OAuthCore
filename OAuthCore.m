@@ -28,11 +28,10 @@ static NSData *HMAC_SHA1(NSString *data, NSString *key) {
 }
 
 NSString *OAuthorizationHeader(NSURL *url, NSString *method, NSData *body, NSString *_oAuthConsumerKey, NSString *_oAuthConsumerSecret, NSString *_oAuthToken, NSString *_oAuthTokenSecret) {
-  return OAuthorizationHeaderWithCallback(url, method, body, _oAuthConsumerKey, _oAuthConsumerSecret, _oAuthToken, _oAuthTokenSecret, nil);
+	return OAuthorizationHeaderWithCallback(url, method, body, _oAuthConsumerKey, _oAuthConsumerSecret, _oAuthToken, _oAuthTokenSecret, nil);
 }
 
-NSString *OAuthorizationHeaderWithCallback(NSURL *url, NSString *method, NSData *body, NSString *_oAuthConsumerKey, NSString *_oAuthConsumerSecret, NSString *_oAuthToken, NSString *_oAuthTokenSecret, NSString *_oAuthCallback)
-{
+NSString *OAuthorizationHeaderWithCallback(NSURL *url, NSString *method, NSData *body, NSString *_oAuthConsumerKey, NSString *_oAuthConsumerSecret, NSString *_oAuthToken, NSString *_oAuthTokenSecret, NSString *_oAuthCallback) {
 	NSString *_oAuthNonce = [NSString ab_GUID];
 	NSString *_oAuthTimestamp = [NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970]];
 	NSString *_oAuthSignatureMethod = @"HMAC-SHA1";
@@ -80,11 +79,11 @@ NSString *OAuthorizationHeaderWithCallback(NSURL *url, NSString *method, NSData 
 	NSString *normalizedParameterString = [parameterArray componentsJoinedByString:@"&"];
 	
 	NSString *normalizedURLString;
-    if ([url port] == nil) {
-        normalizedURLString = [NSString stringWithFormat:@"%@://%@%@", [url scheme], [url host], [url path]];
-    } else {
-        normalizedURLString = [NSString stringWithFormat:@"%@://%@:%@%@", [url scheme], [url host], [url port], [url path]];
-    }
+	if([url port] == nil) {
+		normalizedURLString = [NSString stringWithFormat:@"%@://%@%@", [url scheme], [url host], [url path]];
+	} else {
+		normalizedURLString = [NSString stringWithFormat:@"%@://%@:%@%@", [url scheme], [url host], [url port], [url path]];
+	}
 	
 	NSString *signatureBaseString = [NSString stringWithFormat:@"%@&%@&%@",
 									 [method ab_RFC3986EncodedString],
