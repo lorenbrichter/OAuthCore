@@ -28,18 +28,8 @@
 
 - (NSString *)ab_actualPath
 {
-    NSString *urlString = [self absoluteString];
-    
-    NSRange range = [urlString rangeOfString:@"?"];
-    if (range.location != NSNotFound) {
-        urlString = [urlString substringToIndex:range.location];
-    }
-    
-    if ([urlString hasSuffix:@"/"]) {
-        return [NSString stringWithFormat:@"%@/", [self path]];
-    }
-    
-    return [self path];
+    NSString* cfPath = [(NSString*)CFURLCopyPath((CFURLRef)self) autorelease];
+    return cfPath;
 }
 
 @end
