@@ -80,9 +80,9 @@ NSString *OAuthorizationHeaderWithCallback(NSURL *url, NSString *method, NSData 
 	
 	NSString *normalizedURLString;
 	if([url port] == nil) {
-		normalizedURLString = [NSString stringWithFormat:@"%@://%@%@", [url scheme], [url host], [url path]];
+		normalizedURLString = [NSString stringWithFormat:@"%@://%@%@", [url scheme], [url host], [url ab_actualPath]];
 	} else {
-		normalizedURLString = [NSString stringWithFormat:@"%@://%@:%@%@", [url scheme], [url host], [url port], [url path]];
+		normalizedURLString = [NSString stringWithFormat:@"%@://%@:%@%@", [url scheme], [url host], [url port], [url ab_actualPath]];
 	}
 	
 	NSString *signatureBaseString = [NSString stringWithFormat:@"%@&%@&%@",
