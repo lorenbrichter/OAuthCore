@@ -26,6 +26,12 @@
 	return [NSDictionary dictionaryWithDictionary:dict];
 }
 
+- (NSString *)ab_actualPath
+{
+    NSString* cfPath = [(NSString*)CFURLCopyPath((CFURLRef)self) autorelease];
+    return cfPath;
+}
+
 @end
 
 @implementation NSString (OAuthAdditions)
